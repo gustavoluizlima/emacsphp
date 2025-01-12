@@ -1,0 +1,141 @@
+;; Configs
+(setq inhibit-startup-message t)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(global-display-line-numbers-mode 1)
+(set-face-attribute 'default nil :height 110)
+(load-theme 'gruvbox-dark-soft t)
+
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(use-package try
+  :ensure t)
+
+(use-package which-key
+  :ensure t
+  :config (which-key-mode))
+
+(use-package auto-complete
+  :ensure t
+  :init
+  (progn
+    (ac-config-default)
+    (global-auto-complete-mode t)))
+
+(use-package popup-complete
+  :ensure t)
+
+(use-package popup
+  :ensure t)
+
+(use-package neotree
+  :ensure t
+  :bind (("C-\\" . 'neotree-toggle)))
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+
+(use-package ace-window
+  :ensure t
+  :bind (("C-x o" . ace-window)))
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode t))
+
+(use-package yasnippet
+  :ensure t)
+
+(use-package yasnippet-snippets
+  :ensure t
+  :config (yas-global-mode 1))
+
+(use-package lsp-mode
+  :commands lsp
+  :init
+  (setq lsp-enabled-clients '(lsp-intelephense)))
+
+(use-package projectile
+  :ensure t)
+
+(use-package dap-mode
+  :ensure t)
+
+(use-package company
+  :ensure t)
+
+(use-package company-box
+  :ensure t)
+
+(use-package tree-sitter
+  :ensure t)
+
+(use-package tree-sitter-langs
+  :ensure t)
+
+(use-package lsp-ui
+  :ensure t)
+
+;; Web Development
+(use-package web-mode
+  :ensure t)
+
+(use-package multi-web-mode
+  :ensure t)
+(setq mweb-default-major-mode 'html-mode)
+(setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+                  (js-mode "<script +\\(type=\"text/javascript\"\\|language=\"javascript\"\\)[^>]*>" "</script>")
+                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
+(multi-web-global-mode 1)
+
+(setq web-mode-indent-tabs-mode nil)
+(setq web-mode-indent-level 2)
+(setq web-mode-css-indent-offset 2)
+
+(use-package sql
+  :ensure t)
+
+(use-package js2-mode
+  :ensure t)
+
+(setq auto-mode-alist
+      (append '(("\\.html$" . html-mode)
+                ("\\.css$"  . css-mode)
+                ("\\.js$"   . javascript-mode)
+                ("\\.php$"  . php-mode))
+              auto-mode-alist))
+
+(setq indent-tabs-mode nil)
+(setq tab-width 4)
+
+
+;; Keybinds
+(global-set-key (kbd "C-<tab>") 'other-window)
+(global-set-key (kbd "M-<down>") 'enlarge-window)
+(global-set-key (kbd "M-<up>") 'shrink-window)
+(global-set-key (kbd "M-<left>") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-<right>") 'shrink-window-horizontally-window)
+
+;;Melpa
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("51fa6edfd6c8a4defc2681e4c438caf24908854c12ea12a1fbfd4d055a9647a3" default))
+ '(package-selected-packages
+   '(lsp-ui tree-sitter-langs tree-sitter emacs-tree-sitter company-box dap-mode projectile multi-web-mode yasnippet-snippets js2-mode yasnippet flycheck ace-window all-the-icons neotree popup-complete auto-complete gruvbox-theme which-key try ##)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
